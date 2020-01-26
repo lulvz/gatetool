@@ -8,16 +8,14 @@ import (
 	"os/exec"
 	"strings"
 
-	"golang.org/x/crypto/bcrypt"
-
 	"github.com/gorilla/mux"
 )
 
-const shell_path_out string = "./scripts_waves/honeoutsidedoor.sh"
-const shell_path_in string = "./scripts_waves/inside_door_hone.sh"
+const shell_path_out string = "/home/pi/wavv/scripts_waves/honeoutsidedoor.sh"
+const shell_path_in string = "/home/pi/wavv/scripts_waves/inside_door_hone.sh"
 
 func open_inside() error {
-	cmd := exec.Command(shell_path_out)
+	cmd := exec.Command(shell_path_in)
 	err := cmd.Run()
 	if err != nil {
 		return err
@@ -27,7 +25,7 @@ func open_inside() error {
 }
 
 func open_outside() error {
-	cmd := exec.Command(shell_path_in)
+	cmd := exec.Command(shell_path_out)
 	err := cmd.Run()
 	if err != nil {
 		return err
@@ -44,15 +42,12 @@ func apiAccessIn(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "revamp bitch\n")
 
 	// the actual password thats read from a file called passwd in the same directory
-	access_key, _ := ioutil.ReadFile("./passwd")
-	actual_pass, err := bcrypt.GenerateFromPassword([]byte(strings.Trim(string(access_key), " \n")), 10)
-
+	access_key, _ := ioutil.ReadFile("/home/pi/wavv/passwd")
 	// password from user
 	passwd := r.FormValue("pass")
 
-	if err = bcrypt.CompareHashAndPassword(actual_pass, []byte(passwd)); err != nil {
-		w.WriteHeader(69)
-		fmt.Printf("nope\n")
+	if strings.Trim(string(access_key), "\n ") != passwd {
+		fmt.Fprintf(w, "nope\n")
 		return
 	} else {
 		err := open_inside()
@@ -60,8 +55,9 @@ func apiAccessIn(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 			fmt.Fprintf(w, err.Error())
 			return
+		} else {
+			fmt.Fprintf(w, "called inside successfully.\n")
 		}
-		fmt.Fprintf(w, "called inside successfully.\n")
 	}
 }
 
@@ -69,14 +65,11 @@ func apiAccessOut(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "revamp bitch\n")
 
 	// the actual password thats read from a file called passwd in the same directory
-	access_key, _ := ioutil.ReadFile("./passwd")
-	actual_pass, err := bcrypt.GenerateFromPassword([]byte(strings.Trim(string(access_key), " \n")), 10)
-
+	access_key, _ := ioutil.ReadFile("/home/pi/wavv/passwd")
 	// password from user
 	passwd := r.FormValue("pass")
 
-	if err = bcrypt.CompareHashAndPassword(actual_pass, []byte(passwd)); err != nil {
-		w.WriteHeader(69)
+	if strings.Trim(string(access_key), "\n ") != passwd {
 		fmt.Fprintf(w, "nope\n")
 		return
 	} else {
@@ -85,14 +78,16 @@ func apiAccessOut(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 			fmt.Fprintf(w, err.Error())
 			return
+		} else {
+			fmt.Fprintf(w, "called outside successfully.\n")
 		}
-		fmt.Fprintf(w, "called outside successfully.\n")
 	}
 }
 
 func main() {
 	// creates new router
 	router := mux.NewRouter().StrictSlash(false)
+	fmt.Printf("started listening on port 8000\n")
 
 	// this section handles all the parts of the thing
 	router.HandleFunc("/", baseAccess)
@@ -101,5 +96,5 @@ func main() {
 	router.HandleFunc("/api/out/", apiAccessOut).Methods("POST")
 	router.HandleFunc("/api/in/", apiAccessIn).Methods("POST")
 
-	log.Fatal(http.ListenAndServe("0.0.0.0:8001", router))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8000", router))
 }
