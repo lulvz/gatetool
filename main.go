@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/lulascoca/gatetool/controlServer"
+	"github.com/lulascoca/gatetool/controlserver"
 )
 
 func main() {
 	fmt.Printf("yeah, just started listening for new connections\n")
 
-	controlServer.ListenMain("0.0.0.0:8000")
+	controlserver.ListenMain("0.0.0.0:8000")
 }

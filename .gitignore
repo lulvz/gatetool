@@ -1,2 +1,8 @@
+#for now contains the password file for the api
 passwd
+
+# excludes everything in file and also file
 scripts_waves/*
+
+# exception to leave file intact
+!scripts_waves/README
