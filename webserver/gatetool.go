@@ -1,4 +1,4 @@
-package main
+package webserver
 
 import (
 	"fmt"
@@ -11,11 +11,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-const shell_path_out string = "/home/pi/wavv/scripts_waves/honeoutsidedoor.sh"
-const shell_path_in string = "/home/pi/wavv/scripts_waves/inside_door_hone.sh"
+const shellPathOut string = "/home/pi/gatetool/scripts_waves/honeoutsidedoor.sh"
+const shellPathIn string = "/home/pi/gatetool/scripts_waves/inside_door_hone.sh"
 
-func open_inside() error {
-	cmd := exec.Command(shell_path_in)
+func openInside() error {
+	cmd := exec.Command(shellPathIn)
 	err := cmd.Run()
 	if err != nil {
 		return err
@@ -24,8 +24,8 @@ func open_inside() error {
 	}
 }
 
-func open_outside() error {
-	cmd := exec.Command(shell_path_out)
+func openOutside() error {
+	cmd := exec.Command(shellPathOut)
 	err := cmd.Run()
 	if err != nil {
 		return err
@@ -42,49 +42,47 @@ func apiAccessIn(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "revamp bitch\n")
 
 	// the actual password thats read from a file called passwd in the same directory
-	access_key, _ := ioutil.ReadFile("/home/pi/wavv/passwd")
+	accessKey, _ := ioutil.ReadFile("/home/pi/wavv/passwd")
 	// password from user
 	passwd := r.FormValue("pass")
 
-	if strings.Trim(string(access_key), "\n ") != passwd {
+	if strings.Trim(string(accessKey), "\n ") != passwd {
 		fmt.Fprintf(w, "nope\n")
 		return
 	} else {
-		err := open_inside()
+		err := openInside()
 		if err != nil {
 			log.Fatal(err)
 			fmt.Fprintf(w, err.Error())
 			return
-		} else {
-			fmt.Fprintf(w, "called inside successfully.\n")
 		}
+		fmt.Fprintf(w, "called inside successfully.\n")
 	}
 }
 
 func apiAccessOut(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "revamp bitch\n")
 
-	// the actual password thats read from a file called passwd in the same directory
-	access_key, _ := ioutil.ReadFile("/home/pi/wavv/passwd")
+	// the actual password that reads from a file called passwd in the same directory
+	accessKey, _ := ioutil.ReadFile("/home/pi/wavv/passwd")
 	// password from user
 	passwd := r.FormValue("pass")
 
-	if strings.Trim(string(access_key), "\n ") != passwd {
+	if strings.Trim(string(accessKey), "\n ") != passwd {
 		fmt.Fprintf(w, "nope\n")
 		return
 	} else {
-		err := open_outside()
+		err := openOutside()
 		if err != nil {
 			log.Fatal(err)
 			fmt.Fprintf(w, err.Error())
 			return
-		} else {
-			fmt.Fprintf(w, "called outside successfully.\n")
 		}
+		fmt.Fprintf(w, "called outside successfully.\n")
 	}
 }
 
-func main() {
+func ListenMain(address string) {
 	// creates new router
 	router := mux.NewRouter().StrictSlash(false)
 	fmt.Printf("started listening on port 8000\n")
@@ -96,5 +94,5 @@ func main() {
 	router.HandleFunc("/api/out/", apiAccessOut).Methods("POST")
 	router.HandleFunc("/api/in/", apiAccessIn).Methods("POST")
 
-	log.Fatal(http.ListenAndServe("0.0.0.0:8000", router))
+	log.Fatal(http.ListenAndServe(address, router))
 }
