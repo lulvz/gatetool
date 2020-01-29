@@ -1,0 +1,17 @@
+[Unit]
+Description=Web interface for the gateTool utility startup service
+After=network.target
+#After=local-fs.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=pi
+ExecStart=/usr/local/gateToolWeb/controlserver
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
