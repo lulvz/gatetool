@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+var homeDir string = os.Getenv("HOME")
+
 // web Config Info from config file
 type webConfig struct {
 	// webserver constants
@@ -26,16 +28,17 @@ type mainConfig struct {
 // WEB CONFIG FUNCS
 
 // reads the hardcoded default config file
-func readwebDefaultConfig() webConfig {
+func readWebDefaultConfig() webConfig {
 	// create new config object of type Config
 	var config webConfig
 
 	// open default file and log if error
-	jsonFileDat, err := os.Open("/usr/local/gateTool/gateToolWeb/gateToolConfig.json")
+	var defaultPath = fmt.Sprintf("%s/%s", homeDir, ".gateToolFiles/gateToolWebConfig.json")
+	jsonFileDat, err := os.Open(defaultPath)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("opened default file\n")
+	fmt.Printf("opened default file\n\n")
 	// convert opened file to bytearray
 	byteValue, _ := ioutil.ReadAll(jsonFileDat)
 
@@ -47,19 +50,20 @@ func readwebDefaultConfig() webConfig {
 }
 
 // ReadConfig Reads info from config file
-func readwebConfig(file string) webConfig {
+func readWebConfig(file string) webConfig {
 	if len(file) != 0 {
 		// create new config object of type Config
 		var config webConfig
 
 		// try to open file and log if error
 		jsonFileDat, err := os.Open(file)
-		fmt.Printf("%s\n%d\n", file, len(file))
-
+		fmt.Printf("%s\n", file)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("opened file from env\n")
+		// inform file was opened from env variable instead of default location
+		fmt.Printf("opened file from env\n\n")
+
 		// convert opened file to bytearray
 		byteValue, _ := ioutil.ReadAll(jsonFileDat)
 
@@ -70,7 +74,7 @@ func readwebConfig(file string) webConfig {
 		return config
 	}
 	// in case the env var is no defined just use the default config
-	return readwebDefaultConfig()
+	return readWebDefaultConfig()
 }
 
 // MAIN CONFIG FUNCS
@@ -81,7 +85,8 @@ func readDefaultConfig() mainConfig {
 	var config mainConfig
 
 	// open default file and log if error
-	jsonFileDat, err := os.Open("/usr/local/gateTool/gateToolWeb/gateToolConfig.json")
+	var defaultPath = fmt.Sprintf("%s/%s", homeDir, ".gateToolFiles/gateToolConfig.json")
+	jsonFileDat, err := os.Open(defaultPath)
 	if err != nil {
 		log.Fatal(err)
 	}

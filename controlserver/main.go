@@ -10,7 +10,7 @@ import (
 // gets config file name from env variable
 var webConfigFile string = os.Getenv("GATEWEBCFG")
 var mainConfigFile string = os.Getenv("GATECFG")
-var webconfig webConfig = readwebConfig(webConfigFile)
+var webconfig webConfig = readWebConfig(webConfigFile)
 var mainconfig mainConfig = readConfig(mainConfigFile)
 
 func baseAccess(w http.ResponseWriter, r *http.Request) {
