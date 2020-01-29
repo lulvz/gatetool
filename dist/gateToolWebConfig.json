@@ -1,5 +1,5 @@
 {
-    "passwdLocation": "/home/lulaz/projects/gopro/src/github.com/lulascoca/gatetool/dist/web/passwd",
+    "passwdLocation": "/usr/local/gateToolWeb/passwd",
 
     "address": "0.0.0.0",
     "port": 8000

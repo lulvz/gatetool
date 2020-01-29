@@ -62,7 +62,7 @@ echo "\ninstalling webserver in /usr/local/gateToolWeb/\n"
 sudo mkdir /usr/local/gateTool
 sudo mkdir /usr/local/gateTool/gateToolWeb
 sudo cp -r ./dist/web/* /usr/local/gateToolWeb
-sudo cp ./controlserver/build/controlserver /usr/local/gateToolWeb
+sudo cp ./controlserver/build/controlserver /usr/local/gateTool/gateToolWeb
 
 # enabling the services here
 echo "\ncreating and enabling gateToolWeb.service\n"

@@ -9,7 +9,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=pi
-ExecStart=/usr/local/gateToolWeb/controlserver
+ExecStart=/usr/local/gateTool/gateToolWeb/controlserver
 StandardOutput=journal
 StandardError=journal
 
