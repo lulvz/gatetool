@@ -45,7 +45,7 @@ mkdir $HOME/.gateToolFiles
 cp -r ./gateToolScripts $HOME/.gateToolFiles/
 
 # this puts the webserver and main config files in the .gateToolFiles directory in the home folder
-echo "\ncreating config files gateToolConfig.json and gateToolWebConfig in $Home/.gateToolFiles/\n"
+echo "\ncreating config files gateToolConfig.json and gateToolWebConfig.json in $Home/.gateToolFiles/\n"
 cp dist/gateToolConfig.json $HOME/.gateToolFiles
 cp dist/gateToolWebConfig.json $HOME/.gateToolFiles/
 
