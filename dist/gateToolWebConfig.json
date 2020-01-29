@@ -1,5 +1,5 @@
 {
-    "passwdLocation": "/usr/local/gateToolWeb/passwd",
+    "passwdLocation": "/usr/local/gateTool/gateToolWeb/passwd",
 
     "address": "0.0.0.0",
     "port": 8000
