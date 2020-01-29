@@ -38,7 +38,7 @@ func readWebDefaultConfig() webConfig {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("opened default file\n\n")
+	fmt.Printf("### opened default file ###\n\n")
 	// convert opened file to bytearray
 	byteValue, _ := ioutil.ReadAll(jsonFileDat)
 
@@ -62,7 +62,7 @@ func readWebConfig(file string) webConfig {
 			log.Fatal(err)
 		}
 		// inform file was opened from env variable instead of default location
-		fmt.Printf("opened file from env\n\n")
+		fmt.Printf("### opened file from env ###\n\n")
 
 		// convert opened file to bytearray
 		byteValue, _ := ioutil.ReadAll(jsonFileDat)
@@ -90,7 +90,7 @@ func readDefaultConfig() mainConfig {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("opened default file\n")
+	fmt.Printf("### opened default file ###\n\n")
 	// convert opened file to bytearray
 	byteValue, _ := ioutil.ReadAll(jsonFileDat)
 
@@ -114,7 +114,7 @@ func readConfig(file string) mainConfig {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("opened file from env\n")
+		fmt.Printf("### opened file from env ###\n\n")
 		// convert opened file to bytearray
 		byteValue, _ := ioutil.ReadAll(jsonFileDat)
 
