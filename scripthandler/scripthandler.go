@@ -1,4 +1,4 @@
-package heh
+package scripthandler
 
 import (
 	"fmt"
