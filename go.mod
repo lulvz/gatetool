@@ -1,3 +1,3 @@
-module github.com/lulascoca/gatetool
+module gatetool
 
 go 1.13
