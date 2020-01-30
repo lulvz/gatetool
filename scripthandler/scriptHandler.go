@@ -1,4 +1,4 @@
-package main
+package sscripthandler
 
 import (
 	"fmt"
@@ -8,12 +8,12 @@ import (
 var shellPathOut string = fmt.Sprintf("%s%s", mainconfig.ScriptsLocation, "honeoutsidedoor.sh")
 var shellPathIn string = fmt.Sprintf("%s%s", mainconfig.ScriptsLocation, "inside_door_hone.sh")
 
-func openOutside() error {
+func OpenOutside() error {
 	cmd := exec.Command(shellPathOut)
 	return cmd.Run()
 }
 
-func openInside() error {
+func OpenInside() error {
 	cmd := exec.Command(shellPathIn)
 	return cmd.Run()
 }
