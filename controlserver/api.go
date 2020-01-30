@@ -5,8 +5,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
-
-	"github.com/lulascoca/gatetool/scriptworker"
 )
 
 func apiAccess(w http.ResponseWriter, r *http.Request) {
@@ -29,11 +27,11 @@ func apiAccess(w http.ResponseWriter, r *http.Request) {
 
 		// check which door to open
 		if door == "out" {
-			scriptworker.OpenOutside(mainconfig.ScriptsLocation)
+			OpenOutside(mainconfig.ScriptsLocation)
 			fmt.Fprintf(w, "called outside successfully.\n")
 			return
 		} else if door == "in" {
-			scriptworker.OpenInside(mainconfig.ScriptsLocation)
+			OpenInside(mainconfig.ScriptsLocation)
 			fmt.Fprintf(w, "called inside successfully.\n")
 			return
 		}

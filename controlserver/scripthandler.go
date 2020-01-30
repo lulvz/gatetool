@@ -1,4 +1,4 @@
-package scriptworker
+package main
 
 import (
 	"fmt"
