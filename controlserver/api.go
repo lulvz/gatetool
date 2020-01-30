@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/lulascoca/gatetool/scripthandler"
+	"github.com/gorilla/mux"
 )
 
 func apiAccess(w http.ResponseWriter, r *http.Request) {
