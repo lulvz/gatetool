@@ -29,11 +29,11 @@ func apiAccess(w http.ResponseWriter, r *http.Request) {
 
 		// check which door to open
 		if door == "out" {
-			scripthandler.OpenOutside()
+			scriptthandler.OpenOutside(mainconfig.scriptsLocation)
 			fmt.Fprintf(w, "called outside successfully.\n")
 			return
 		} else if door == "in" {
-			scripthandler.OpenInside()
+			scripthandler.OpenInside(mainconfig.scriptsLocation)
 			fmt.Fprintf(w, "called inside successfully.\n")
 			return
 		}
