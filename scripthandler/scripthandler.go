@@ -1,4 +1,4 @@
-package sscripthandler
+package scripthandler
 
 import (
 	"fmt"
