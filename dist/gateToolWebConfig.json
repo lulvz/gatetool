@@ -1,6 +1,6 @@
 {
     "passwdLocation": "/usr/local/gateTool/gateToolWeb/passwd",
 
-    "address": "0.0.0.0",
+    "sddress": "0.0.0.0",
     "port": 8000
 }

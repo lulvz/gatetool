@@ -1,3 +1,16 @@
 {
-    "scriptsLocation": "/home/lulaz/.gateToolScripts/"
+    "scriptsLocation": "/home/lulaz/.gateToolScripts/",
+    
+    "scripts": [
+        {
+            "name": "Outside Gate",
+
+            "fileName": "inside_door_hone.sh"
+        },
+        {
+            "name": "Inside Gate",
+
+            "fileName": "honeoutsidedoor.sh"
+        }
+    ]
 }

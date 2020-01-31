@@ -1,3 +1,2 @@
-github.com/gorilla/mux v1.7.3 h1:gnP5JzjVOuiZD07fKKToCAOjS0yOpj/qPETTXCCS6hw=
-github.com/gorilla/mux v1.7.3/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
-github.com/lulascoca/gatetool v0.0.0-20200130202426-350012aa5236 h1:MEvLwKSt0ghyPElFzsfneIl8yjSdkLSMxTHkvjeL34E=
+github.com/lulascoca/gatetool/scripthandler v0.0.0-20200130211551-8cc4f212138b h1:yaDyNSLzdCGVe18h1X2WnO9GZ6OTTdMwmgYFs2RGCtY=
+github.com/lulascoca/gatetool/scripthandler v0.0.0-20200130211551-8cc4f212138b/go.mod h1:fjikiO483y2mOCrO5eTMYnESMDzg+Vun9Z4ZnIG1x0s=

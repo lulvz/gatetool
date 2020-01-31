@@ -5,9 +5,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
-
-	"github.com/lulascoca/gatetool/scripthandler"
-	"github.com/gorilla/mux"
 )
 
 func apiAccess(w http.ResponseWriter, r *http.Request) {
@@ -30,11 +27,11 @@ func apiAccess(w http.ResponseWriter, r *http.Request) {
 
 		// check which door to open
 		if door == "out" {
-			scripthandler.OpenOutside(mainconfig.ScriptsLocation)
+			OpenOutside(mainconfig.ScriptsLocation)
 			fmt.Fprintf(w, "called outside successfully.\n")
 			return
 		} else if door == "in" {
-			scripthandler.OpenInside(mainconfig.ScriptsLocation)
+			OpenInside(mainconfig.ScriptsLocation)
 			fmt.Fprintf(w, "called inside successfully.\n")
 			return
 		}
