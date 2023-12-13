@@ -12,6 +12,9 @@ A tool for the raspberry pi to allow for easy creation of scripts that can be ra
 Run install.sh as a normal user and input the password when prompted to.
 You can use sudo to run it but it create the files in the /root/ directory
 
+### Running without installing
+I recommend running the api without installing it for now, just go in the controlserver folder and run `go run .` and it should start the server on port 8000 using the debug config.
+
 ## Functonality
 Will list your scripts added to the config file in the web api, allowing for modular scripts to be added to the system.
 Can be expanded with another web app to allow for a nice interface to interact with the scripts.
