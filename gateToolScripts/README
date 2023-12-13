@@ -2,3 +2,11 @@
 
 Place the scripts in here
 and the respective 48hz files inside the waves folder
+
+### To get the 48hz files:
+1. Setup your RTL-SDR dongle with any software that allows capture
+2. Tune to the frequency of your gate remote (only old remotes work because they are less secure)
+3. Capture the signal and save it as a .wav file
+4. Setup a raspberry pi with any copper cable in any GPIO pin
+5. Run rpitx either with the default config like in the `script_example.sh` or with your config that works for you (view rpitx documentation)
+6. You can setup the go api to listen to requests and send the signal to the rpitx server or you can just connect via ssh to the raspberry pi and run the script manually (probably more secure)

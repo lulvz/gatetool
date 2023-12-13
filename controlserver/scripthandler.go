@@ -3,21 +3,29 @@ package main
 import (
 	"fmt"
 	"os/exec"
+	"io/ioutil"
 )
 
 // var shellPathOut string = fmt.Sprintf("%s%s", mainconfig.ScriptsLocation, "honeoutsidedoor.sh")
 // var shellPathIn string = fmt.Sprintf("%s%s", mainconfig.ScriptsLocation, "inside_door_hone.sh")
 
-func OpenOutside(ScriptsLocation string) error {
-	var shellPathOut string = fmt.Sprintf("%s%s", ScriptsLocation, "honeoutsidedoor.sh")
+func listScripts(ScriptsLocation string) ([]string, error) {
+	files, err := ioutil.ReadDir(ScriptsLocation)
+	if err != nil {
+		return nil, err
+	}
 
-	cmd := exec.Command(shellPathOut)
-	return cmd.Run()
+	var scripts []string
+	for _, file := range files {
+		scripts = append(scripts, file.Name())
+	}
+
+	return scripts, nil
 }
 
-func OpenInside(ScriptsLocation string) error {
-	var shellPathIn string = fmt.Sprintf("%s%s", ScriptsLocation, "inside_door_hone.sh")
+func openScript(ScriptsLocation string, scriptName string) error {
+	shellPath := fmt.Sprintf("%s/%s", ScriptsLocation, scriptName)
 
-	cmd := exec.Command(shellPathIn)
+	cmd := exec.Command(shellPath)
 	return cmd.Run()
 }

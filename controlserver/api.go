@@ -1,42 +1,47 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-	"net/http"
-	"strings"
+    "fmt"
+    "io/ioutil"
+    "net/http"
+    "os"
+    "os/exec"
+    "path/filepath"
 )
 
-func apiAccess(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
+// Handle GET requests at /scripts endpoint
+func getScriptsHandler(w http.ResponseWriter, r *http.Request) {
+    files, err := ioutil.ReadDir("./scripts")
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-		// the actual password thats read from a file called passwd in the same directory
+    var scripts []string
+    for _, file := range files {
+        scripts = append(scripts, file.Name())
+    }
 
-		//TODO CHANGE THIS PLEASE
+    fmt.Fprint(w, scripts)
+}
 
-		accessKey, _ := ioutil.ReadFile(webconfig.PasswdLocation)
-		// password from user
-		passwd := r.FormValue("pass")
-		// door to open
-		door := r.FormValue("door")
+// Handle POST requests at /run-script endpoint
+func runScriptHandler(w http.ResponseWriter, r *http.Request) {
+    scriptName := r.FormValue("script")
 
-		if strings.Trim(string(accessKey), "\n ") != passwd {
-			fmt.Fprintf(w, "nope\n")
-			return
-		}
+    // Check if script exists
+    scriptPath := filepath.Join("./scripts", scriptName)
+    if _, err := os.Stat(scriptPath); os.IsNotExist(err) {
+        http.Error(w, "Script not found", http.StatusNotFound)
+        return
+    }
 
-		// check which door to open
-		if door == "out" {
-			OpenOutside(mainconfig.ScriptsLocation)
-			fmt.Fprintf(w, "called outside successfully.\n")
-			return
-		} else if door == "in" {
-			OpenInside(mainconfig.ScriptsLocation)
-			fmt.Fprintf(w, "called inside successfully.\n")
-			return
-		}
-		fmt.Fprintf(w, "the door specified doesn't exist\n")
-	}
-	// if method isnt post
-	fmt.Fprint(w, "revamp bitch\n")
+    // Run the script
+    cmd := exec.Command("/bin/sh", scriptPath)
+    if err := cmd.Run(); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    fmt.Fprintf(w, "Script %s ran successfully.\n", scriptName)
 }
