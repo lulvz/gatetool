@@ -11,28 +11,26 @@ import (
 var homeDir string = os.Getenv("HOME")
 
 type script struct {
-	// display name for the script
-	name string
+    // display name for the script
+    Name string `json:"name"`
 
-	// name of script on disk
-	fileName string
+    // name of script on disk
+    FileName string `json:"fileName"`
 }
 
 // web Config Info from config file
 type webConfig struct {
-	// webserver constants
-	passwdLocation string
-
-	address string
-	port    int
+    // webserver constants
+    PasswdLocation string `json:"passwdLocation"`
+    Address string `json:"address"`
+    Port    int `json:"port"`
 }
 
 // main Config Info from config file
 type mainConfig struct {
-	// main app constants
-	scriptsLocation string
-
-	scripts []script
+    // main app constants
+    ScriptsLocation string `json:"scriptsLocation"`
+    Scripts []script `json:"scripts"`
 }
 
 // WEB CONFIG FUNCS

@@ -1,5 +1,5 @@
 {
-    "scriptsLocation": "/home/lulaz/.gateToolScripts/",
+    "scriptsLocation": "./scripts_debug",
     
     "scripts": [
         {
