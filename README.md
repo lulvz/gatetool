@@ -27,7 +27,7 @@ The rtl-sdr dongle is not used in conjunction with the raspberry pi unless you w
 ### Soldering the copper cable to the raspberry pi
 It's not necessary to solder the copper cable, you can just wrap it around the GPIO pin, but I reccomend soldering it to the pin to make sure it doesn't come loose, I also gained a bit of range by soldering it to the pin.
 
-### Use of another antennas
+### Use of antennas
 I was able to open a gate at 100m range with a random television antenna I had lying around, I was pretty impressed with the range, but since this setup emits a lot of noise in other frequencies, I don't reccomend using it with a big antenna, since it will probably interfere with other devices.
 
 ## Capture the signal
