@@ -1,3 +1,3 @@
-module github.com/lulascoca/gatetool/gatecli
+module github.com/lulvz/gatetool/gatecli
 
 go 1.13
